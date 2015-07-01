@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/bai"
+    android:orientation="vertical" >
+
+     <LinearLayout
+        android:id="@id/layout_title"
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip"
+        android:background="@color/selet_title_blue"
+        android:gravity="center_vertical"
+        android:padding="5.0dip" >
+
+        <Button
+            android:id="@+id/return2"
+            android:layout_width="50.0dip"
+            android:layout_height="35.0dip"
+            android:background="@drawable/btn_back" />
+
+        <TextView
+            android:id="@id/title"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20.0sp"
+            android:textStyle="bold" 
+            android:text = "货源管理"/>
+        
+        <Button
+            android:id="@+id/edit2"
+            android:layout_width="50.0dip"
+            android:layout_height="35.0dip"
+            android:background="@drawable/v1_manager1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/manager_huoyuan"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:visibility="gone" 
+        android:gravity="center"
+        android:orientation="vertical"
+         >
+
+        <ImageView
+            android:layout_width="80.0dip"
+            android:layout_height="80.0dip"
+            android:scaleType="fitXY"
+            android:src="@drawable/v1_noinfo_bg" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10.0dip"
+            android:text="@string/no_search_info"
+            android:textSize="16.0sp" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/manager_huoyuan_list"
+        android:layout_width="fill_parent"
+        android:layout_height="307dp"
+        android:layout_weight="1.06"
+        android:background="@color/bai"
+        android:cacheColorHint="#00000000" />
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/btn_fabu_huoyuan"
+            android:layout_width="fill_parent"
+            android:layout_height="40.0dip"
+            android:background="@drawable/bg_btn"
+            android:text="发布货源"
+            android:textColor="@color/white"
+            android:textSize="18.0sp" />
+
+        <LinearLayout
+            android:id="@+id/li_menu"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white"
+            android:orientation="vertical"
+            android:padding="10.0dip"
+            android:visibility="gone" >
+
+            <Button
+                android:id="@+id/btn_manager_resend"
+                android:layout_width="fill_parent"
+                android:layout_height="40.0dip"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginRight="5.0dip"
+                android:layout_marginTop="8.0dip"
+                android:text="重发"
+                android:textColor="@drawable/list_txt_color1"
+                android:textSize="18.0sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>

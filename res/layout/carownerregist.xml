@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@drawable/white"
+    android:scrollbars="vertical"
+    android:scrollbarFadeDuration="1"
+    
+    >
+    <LinearLayout android:layout_width="fill_parent"
+    android:layout_height="40dip"
+    android:orientation="horizontal"
+	android:background="@drawable/blue">
+    <TextView android:text="发货企业或个人注册"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@drawable/white"
+        android:textSize="30dp">
+        </TextView>
+    </LinearLayout>
+    <ScrollView  android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        >
+    <LinearLayout
+         android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:gravity="center_horizontal"
+    >
+    <TextView android:text="会员登录名 :"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@drawable/black"
+        android:textSize="13dp"
+        android:layout_marginTop="15dip">
+        </TextView>
+    <EditText android:id="@+id/ousername"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:shadowRadius="3.0"
+        android:layout_marginTop="8dip"
+        >
+    </EditText>
+     <TextView android:text="由4-18个字母或数字组成（不区分大小写），不能用中文，注册成功后不可修改"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="8dp"
+        android:layout_marginLeft="2dp"
+        >
+        </TextView>
+        <TextView android:text="输入登录密码 :"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@drawable/black"
+        android:textSize="13dp"
+        android:layout_marginTop="15dip">
+        </TextView>
+		<EditText android:id="@+id/opassword1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:shadowRadius="3.0"
+        android:layout_marginTop="8dip"
+        >
+    	</EditText>
+    	 <TextView android:text="密码长度6-16个字符，字母区分大小写,不能用中文"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="8dp"
+        android:layout_marginLeft="2dp"
+        >
+    	</TextView>
+    	<TextView android:text="确认登录密码 :"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@drawable/black"
+        android:textSize="13dp"
+        android:layout_marginTop="15dip">
+        </TextView>
+        <EditText android:id="@+id/opassword2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:shadowRadius="3.0"
+        android:layout_marginTop="8dip"
+        >
+    	</EditText>
+    	<TextView android:text="请重复输入相同的登录密码"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="8dp"
+        android:layout_marginLeft="2dp"
+        >
+    	</TextView>
+    	<TextView android:text="公司/个人所在地 :"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@drawable/black"
+        android:textSize="13dp"
+        android:layout_marginTop="15dip">
+        </TextView>
+        <LinearLayout android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+    		 <info.ericyue.es.myView.SelectAddressView
+		        android:layout_width="match_parent" 
+		        android:layout_height="wrap_content"
+		        android:id="@+id/cargoregistaddress"
+		       />
+        </LinearLayout>
+        <TextView android:text="注册人姓名 :"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@drawable/black"
+        android:textSize="13dp"
+        android:layout_marginTop="15dip">
+        </TextView>
+        <EditText android:id="@+id/oregistername"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:shadowRadius="3.0"
+        android:layout_marginTop="8dip"
+        >
+    	</EditText>
+    	<TextView android:text="请填写您真是的中文姓名"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="8dp"
+        android:layout_marginLeft="2dp"
+        >
+    	</TextView>
+    	<TextView android:text="注册人电话 :"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@drawable/black"
+        android:textSize="13dp"
+        android:layout_marginTop="15dip">
+        </TextView>
+        <EditText android:id="@+id/oregisternum"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:shadowRadius="3.0"
+        android:layout_marginTop="8dip"
+        >
+    	</EditText>
+    	<TextView android:text="请填写正确的电话号码"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="8dp"
+        android:layout_marginLeft="2dp"
+        >
+    	</TextView>
+    	<TextView android:text="注册人邮箱 :"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@drawable/black"
+        android:textSize="13dp"
+        android:layout_marginTop="15dip">
+        </TextView>
+        <EditText android:id="@+id/oregisteremail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:shadowRadius="3.0"
+        android:layout_marginTop="8dip"
+        >
+    	</EditText>
+    	<TextView android:text="请填写有效、常用的邮箱，便于找回密码"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="8dp"
+        android:layout_marginLeft="2dp"
+        >
+    	</TextView>
+    	<TextView android:text="公司名称/个人姓名 :"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@drawable/black"
+        android:textSize="13dp"
+        android:layout_marginTop="15dip">
+        </TextView>
+        <EditText android:id="@+id/oregistercompanyname"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:shadowRadius="3.0"
+        android:layout_marginTop="8dip"
+        >
+    	</EditText>
+    	<TextView android:text="请填写您在工商局注册的全称"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="8dp"
+        android:layout_marginLeft="2dp"
+        >
+    	</TextView>
+    	
+    	<Button android:id="@+id/osubmit"
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="30dp"
+    	    android:text="确认提交"
+    	    android:background="@drawable/buttonselect"
+    	    />
+    	</LinearLayout>
+    	</ScrollView>
+</LinearLayout>

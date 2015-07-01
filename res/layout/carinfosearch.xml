@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/bai"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:background="@drawable/blue"
+        android:orientation="horizontal" >
+    <TextView
+        
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="7.0dip"
+        android:layout_marginLeft="110dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/white"
+        android:text="查询车源"
+        android:textSize="25.0sp" />
+    </LinearLayout>
+
+    <TextView
+        
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        
+        android:paddingBottom="5.0dip"
+        android:paddingLeft="15.0dip"
+        android:paddingTop="70.0dip"
+        android:text="出发地"
+        android:textColor="@color/black"
+        android:textSize="17.0sp" />
+
+    <LinearLayout
+        android:id="@+id/li_start"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:gravity="center_vertical"
+        android:padding="5.0dip" >
+
+       <info.ericyue.es.myView.SelectAddressView
+		        android:layout_width="match_parent" 
+		        android:layout_height="wrap_content"
+		        android:id="@+id/carfrom"
+		       />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_end"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/li_start"
+        android:paddingBottom="5.0dip"
+        android:paddingLeft="15.0dip"
+        android:paddingTop="16.0dip"
+        android:text="到达地"
+        android:textColor="@color/black"
+        android:textSize="17.0sp" />
+
+    <LinearLayout
+        android:id="@+id/li_end"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_end"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:gravity="center_vertical"
+        android:padding="5.0dip" >
+
+          <info.ericyue.es.myView.SelectAddressView
+		        android:layout_width="match_parent" 
+		        android:layout_height="wrap_content"
+		        android:id="@+id/carto"
+		        
+        />
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:layout_marginBottom="0dip"
+            >
+		  <Button
+		      android:id="@+id/btsearchsubmit"
+		      android:layout_width="wrap_content"
+		      android:layout_height="wrap_content"
+		      android:layout_marginTop="30dip"
+		      android:background="@drawable/btn_bg"
+		      android:text="搜索车源"
+		      android:textColor="@drawable/white"
+		      android:textSize="20dip" 
+		      android:layout_gravity="bottom"
+		      android:layout_weight="0.5"
+		      />
+
+		   <Button
+		       
+		      android:id="@+id/back1"
+		      android:layout_gravity="bottom"
+		      android:layout_width="wrap_content"
+		      android:layout_height="wrap_content"
+		      android:layout_marginTop="30dip"
+		      android:background="@drawable/btn_bg"
+		      android:text="返        回"
+		      android:textColor="@drawable/white"
+		      android:textSize="20dip" 
+		      android:layout_weight="0.5"/>
+		  </LinearLayout>
+
+</LinearLayout>

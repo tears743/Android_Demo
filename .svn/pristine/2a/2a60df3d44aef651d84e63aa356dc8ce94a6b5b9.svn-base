@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/white"
+    android:orientation="vertical"
+    android:scrollbarFadeDuration="1"
+    android:scrollbars="vertical" >
+
+      <LinearLayout android:layout_width="fill_parent"
+    android:layout_height="40dip"
+    android:orientation="horizontal"
+	android:background="@drawable/blue">
+	 <TextView android:text="发布货源"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@drawable/white"
+        android:textSize="30dp">
+        </TextView>
+          
+	</LinearLayout>
+	 <ScrollView  android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        >
+	 <LinearLayout
+         android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    
+    >
+    
+	     <TextView android:text="出发地 :"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@drawable/black"
+        android:textSize="13dp"
+        android:layout_marginTop="15dip">
+        </TextView>
+        <LinearLayout android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+    		<Button android:id="@+id/rdprovince"
+    		    android:layout_width="wrap_content"
+    		    android:layout_height="wrap_content"
+    		    android:text="省份"
+    		    android:textColor="@drawable/black"
+    		    android:shadowRadius="3.0"
+    		    android:layout_marginTop="8dip"
+    		    android:layout_weight="1"
+    		    android:gravity="center_vertical|center_horizontal"
+    		   
+    		    android:clickable="true">
+    		</Button>
+    		<Button android:id="@+id/rdcity"
+    		    android:layout_width="wrap_content"
+    		    android:layout_height="wrap_content"
+    		    android:text="城市"
+    		    android:textColor="@drawable/black"
+    		    android:shadowRadius="3.0"
+    		    android:layout_marginTop="8dip"
+    		    android:layout_weight="1"
+    		    android:gravity="center_vertical|center_horizontal">
+    		</Button>
+    		<Button android:id="@+id/rddistrict"
+    		    android:layout_width="wrap_content"
+    		    android:layout_height="wrap_content"
+    		    android:text="县区"
+    		    android:textColor="@drawable/black"
+    		    android:shadowRadius="3.0"
+    		    android:layout_marginTop="8dip"
+    		    android:layout_weight="1"
+    		    android:gravity="center_vertical|center_horizontal">
+    		</Button>
+        </LinearLayout>
+        <TextView android:text="到达地 :"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@drawable/black"
+        android:textSize="13dp"
+        android:layout_marginTop="15dip">
+        </TextView>
+        <LinearLayout android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+    		<Button android:id="@+id/ddprovince"
+    		    android:layout_width="wrap_content"
+    		    android:layout_height="wrap_content"
+    		    android:text="省份"
+    		    android:textColor="@drawable/black"
+    		    android:shadowRadius="3.0"
+    		    android:layout_marginTop="8dip"
+    		    android:layout_weight="1"
+    		    android:gravity="center_vertical|center_horizontal"
+    		   
+    		    android:clickable="true">
+    		</Button>
+    		<Button android:id="@+id/ddcity"
+    		    android:layout_width="wrap_content"
+    		    android:layout_height="wrap_content"
+    		    android:text="城市"
+    		    android:textColor="@drawable/black"
+    		    android:shadowRadius="3.0"
+    		    android:layout_marginTop="8dip"
+    		    android:layout_weight="1"
+    		    android:gravity="center_vertical|center_horizontal">
+    		</Button>
+    		<Button android:id="@+id/dddistrict"
+    		    android:layout_width="wrap_content"
+    		    android:layout_height="wrap_content"
+    		    android:text="县区"
+    		    android:textColor="@drawable/black"
+    		    android:shadowRadius="3.0"
+    		    android:layout_marginTop="8dip"
+    		    android:layout_weight="1"
+    		    android:gravity="center_vertical|center_horizontal">
+    		</Button>
+        </LinearLayout>
+        <TextView android:text="货物名称 :"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@drawable/black"
+        android:textSize="13dp"
+        android:layout_marginTop="15dip">
+        </TextView>
+        <LinearLayout android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+    		<EditText
+	     android:id="@+id/cargoname"
+	     android:layout_width="match_parent"
+	     android:layout_height="55dip"
+	     android:layout_marginTop="8dip"
+	     android:ems="10"
+	     android:hint="可自行输入或是选择"
+	     android:shadowRadius="3.0" >
+
+	     
+	 </EditText>
+       	<Spinner
+    	    android:id="@+id/cargospinner"
+    	    android:layout_width="match_parent"
+    	    android:layout_height="55dp"
+    	    android:layout_marginTop="8dip"
+    	     >
+
+    	    </Spinner>
+    	</LinearLayout>
+    	
+    	<TextView android:text="运输方式 :"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@drawable/black"
+        android:textSize="13dp"
+        android:layout_marginTop="15dip">
+        </TextView>
+        <Spinner
+    	    android:id="@+id/transportModSpinner"
+    	    android:layout_width="match_parent"
+    	    android:layout_height="55dp"
+    	    android:layout_marginTop="8dip"
+    	     >
+
+    	    </Spinner>
+    	    
+    	    <LinearLayout android:layout_width="fill_parent"
+    	        android:layout_height="wrap_content"
+    	        android:orientation="horizontal">
+       			<TextView android:text="货物类型 :"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:textColor="@drawable/black"
+			        android:textSize="13dp"
+        			android:layout_marginTop="15dip">
+       			</TextView>
+       			<RadioGroup android:id="@+id/cargoType"
+       			    android:layout_width="fill_parent"
+       			    android:layout_height="wrap_content"
+       			    android:orientation="horizontal"
+       			    android:layout_marginLeft="10dip">
+       			    <RadioButton android:id = "@+id/normalCargo"
+       			        android:layout_width="wrap_content"
+       			    	android:layout_height="wrap_content"
+       			    	android:checked="true"
+       			    	android:paddingLeft="35.0dip"
+       			    	android:layout_weight="1.0"
+       			        android:text="货"
+       			        android:textColor="@drawable/black"
+       			        />
+
+       			    <RadioButton
+       			        android:id="@+id/heavyCargo"
+       			        android:layout_width="wrap_content"
+       			        android:layout_height="wrap_content"
+       			        android:text="重货"
+       			        android:layout_weight="1.0"
+       			        android:textColor="@drawable/black" 
+       			        android:paddingLeft="35.0dip"
+       			        />
+
+       			    <RadioButton
+       			         android:layout_weight="1.0"
+       			        android:id="@+id/lightCargo"
+       			        android:layout_width="wrap_content"
+       			        android:layout_height="wrap_content"
+       			        android:paddingLeft="35.0dip"
+       			        android:text="轻货"
+       			        android:textColor="@drawable/black" 
+       			        />
+
+       			        
+       			</RadioGroup>
+       			
+       	</LinearLayout>
+        <LinearLayout android:layout_width="fill_parent"
+    	        android:layout_height="wrap_content"
+    	        android:orientation="horizontal">
+       			<TextView android:text="注意事项 :"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:textColor="@drawable/black"
+			        
+			        android:textSize="13dp"
+        			android:layout_marginTop="15dip"
+        			>
+       			</TextView>
+       			<CheckBox android:id="@+id/upward"
+       			    android:layout_width="wrap_content"
+       			    android:layout_height="wrap_content"
+       			    android:text="向上"
+       			    android:layout_marginTop="15dip"
+       			    android:textColor="@drawable/black"
+       			    android:paddingLeft="35dip"
+       			    android:layout_weight="1.0"
+       			    />
+       			
+       			<CheckBox android:id="@+id/dampproof"
+       			    android:layout_width="wrap_content"
+       			    android:layout_height="wrap_content"
+       			    android:text="防潮"
+       			    android:layout_marginTop="15dip"
+       			    android:textColor="@drawable/black"
+       			    android:paddingLeft="35dip"
+       			    android:layout_weight="1.0"
+       			    />
+       			</LinearLayout>
+       			 <LinearLayout android:layout_width="fill_parent"
+    	        android:layout_height="wrap_content"
+    	        android:orientation="horizontal">
+       			
+       			<TextView android:text="注意事项 :"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:textColor="@drawable/black"
+			        android:textSize="13dp"
+			        android:visibility="invisible"
+        			android:layout_marginTop="15dip"
+        			/>
+       			
+       			<CheckBox android:id="@+id/fragile"
+       			    android:layout_width="wrap_content"
+       			    android:layout_height="wrap_content"
+       			    android:text="易碎"
+       			    android:layout_marginTop="15dip"
+       			    android:textColor="@drawable/black"
+       			    android:paddingLeft="35dip"
+       			    android:layout_weight="1.0"
+       			    />
+       			
+       			<CheckBox android:id="@+id/ dangerCargo"
+       			    android:layout_width="wrap_content"
+       			    android:layout_height="wrap_content"
+       			    android:text="危险品"
+       			    android:layout_marginTop="15dip"
+       			    android:textColor="@drawable/black"
+       			    android:paddingLeft="40dip"
+       			    android:layout_weight="1.0"
+       			    />
+       			
+       			</LinearLayout>
+       			<LinearLayout android:layout_width="fill_parent"
+    	        android:layout_height="wrap_content"
+    	        android:orientation="horizontal">
+       		<TextView android:text="截止时间 :"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:textColor="@drawable/black"
+			        android:textSize="13dp"
+        			android:layout_marginTop="15dip"
+        			>
+       			</TextView>
+       			<TextView android:hint="(默认为今天起10天)"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:textColor="@drawable/black"
+			        android:textSize="13dp"
+			        android:layout_marginTop="15dip"
+        			>
+       			</TextView>
+	       			<EditText
+					     android:id="@+id/datepicker"
+					     android:layout_width="match_parent"
+					     android:layout_height="55dip"
+					     android:layout_marginTop="8dip"
+					     android:ems="10"
+					     android:shadowRadius="3.0"
+					     android:clickable="true" >
+		 			</EditText>
+		 			
+       			</LinearLayout>
+       			<LinearLayout android:layout_width="fill_parent"
+    	        android:layout_height="wrap_content"
+    	        android:orientation="horizontal">
+       			<TextView android:text="联  系  人 :"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:textColor="@drawable/black"
+			        android:textSize="13dp"
+        			android:layout_marginTop="15dip"
+        			>
+       			</TextView>	
+       			<EditText
+					     android:id="@+id/relationer"
+					     android:layout_width="match_parent"
+					     android:layout_height="wrap_content"
+					     android:ems="10"
+					     android:shadowRadius="3.0"
+					     android:clickable="true" 
+					     android:textSize="13dp"
+        				android:layout_marginTop="15dip">
+		 			</EditText>
+       			</LinearLayout>
+       			<LinearLayout android:layout_width="fill_parent"
+    	        android:layout_height="wrap_content"
+    	        android:orientation="horizontal">
+       			<TextView android:text="联系电话 :"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:textColor="@drawable/black"
+			        android:textSize="13dp"
+        			android:layout_marginTop="15dip"
+        			>
+       			</TextView>	
+       			<EditText
+					     android:id="@+id/rmphoneno"
+					     android:layout_width="match_parent"
+					     android:layout_height="wrap_content"
+					     android:ems="10"
+					     android:shadowRadius="3.0"
+					     android:clickable="true" 
+					     android:textSize="13dp"
+        				android:layout_marginTop="15dip">
+		 			</EditText>
+       			</LinearLayout>
+       			<LinearLayout android:layout_width="fill_parent"
+    	        android:layout_height="wrap_content"
+    	        android:orientation="horizontal">
+       			<TextView android:text="固定电话 :"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:textColor="@drawable/black"
+			        android:textSize="13dp"
+        			android:layout_marginTop="15dip"
+        			>
+       			</TextView>	
+       			<EditText
+					     android:id="@+id/rflphoneno"
+					     android:layout_width="match_parent"
+					     android:layout_height="wrap_content"
+					     android:ems="10"
+					     android:shadowRadius="3.0"
+					     android:clickable="true" 
+					     android:textSize="13dp"
+        				android:layout_marginTop="15dip">
+		 			</EditText>
+       			</LinearLayout>
+       			<LinearLayout android:layout_width="fill_parent"
+    	        android:layout_height="wrap_content"
+    	        android:orientation="horizontal">
+       			<TextView android:text="运        价 :"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:textColor="@drawable/black"
+			        android:textSize="13dp"
+        			android:layout_marginTop="15dip"
+        			>
+       			</TextView>	
+       			<EditText
+					     android:id="@+id/fee"
+					     android:layout_width="match_parent"
+					     android:layout_height="wrap_content"
+					     android:ems="10"
+					     android:shadowRadius="3.0"
+					     android:clickable="true" 
+					     android:textSize="13dp"
+        				android:layout_marginTop="15dip">
+		 			</EditText>
+       			</LinearLayout>
+
+       			<LinearLayout
+       			    android:layout_width="fill_parent"
+       			    android:layout_height="wrap_content"
+       			    android:orientation="horizontal" >
+
+       			    <TextView
+       			        android:layout_width="wrap_content"
+       			        android:layout_height="wrap_content"
+       			        android:layout_marginTop="15dip"
+       			        android:text="体        积 :"
+       			        android:textColor="@drawable/black"
+       			        android:textSize="13dp" >
+       			    </TextView>
+
+       			    <EditText
+       			        android:id="@+id/volume"
+       			        android:layout_width="wrap_content"
+       			        android:layout_height="wrap_content"
+       			        android:layout_marginTop="15dip"
+       			        android:clickable="true"
+       			        android:ems="10"
+       			        android:shadowRadius="3.0"
+       			        android:textSize="13dp" >
+       			    </EditText>
+
+       			    <TextView
+       			        android:layout_width="0dp"
+       			        android:layout_height="wrap_content"
+       			        android:layout_marginTop="15dip"
+       			        android:layout_weight="1"
+       			        android:text="(立方米)"
+       			        android:textColor="@drawable/black"
+       			        android:textSize="13dp" />
+       			</LinearLayout>
+
+       			<LinearLayout android:layout_width="fill_parent"
+    	        android:layout_height="wrap_content"
+    	        android:orientation="horizontal">
+       			<TextView android:text="重        量 :"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:textColor="@drawable/black"
+			        android:textSize="13dp"
+        			android:layout_marginTop="15dip"
+        			>
+       			</TextView>	
+       			<EditText
+					     android:id="@+id/weight"
+					     android:layout_width="wrap_content"
+					     android:layout_height="wrap_content"
+					     android:ems="10"
+					     android:shadowRadius="3.0"
+					     android:clickable="true" 
+					     android:textSize="13dp"
+        				android:layout_marginTop="15dip">
+		 			</EditText>
+		 			<TextView android:text="(吨)"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:textColor="@drawable/black"
+				        android:textSize="13dp"
+	        			android:layout_marginTop="15dip"
+	        			/>
+       			</LinearLayout>
+       			<LinearLayout android:layout_width="fill_parent"
+    	        android:layout_height="wrap_content"
+    	        android:orientation="horizontal">
+       			<TextView android:text="数        量 :"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:textColor="@drawable/black"
+			        android:textSize="13dp"
+        			android:layout_marginTop="15dip"
+        			>
+       			</TextView>	
+       			<EditText
+					     android:id="@+id/amount"
+					     android:layout_width="wrap_content"
+					     android:layout_height="wrap_content"
+					     android:ems="10"
+					     android:shadowRadius="3.0"
+					     android:clickable="true" 
+					     android:textSize="13dp"
+        				android:layout_marginTop="15dip">
+		 			</EditText>
+		 			<TextView android:text="(件)"
+				        android:layout_width="match_parent"
+				        android:layout_height="wrap_content"
+				        android:textColor="@drawable/black"
+				        android:textSize="13dp"
+	        			android:layout_marginTop="15dip"
+	        			/>
+       			</LinearLayout>
+       			<LinearLayout android:layout_width="fill_parent"
+    	        android:layout_height="wrap_content"
+    	        android:orientation="horizontal">
+       			<TextView android:text="说        明 :"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:textColor="@drawable/black"
+			        android:textSize="13dp"
+        			android:layout_marginTop="15dip"
+        			>
+       			</TextView>	
+       			<EditText
+					     android:id="@+id/explain"
+					     android:layout_width="match_parent"
+					     android:layout_height="wrap_content"
+					     android:ems="10"
+					     android:shadowRadius="3.0"
+					     android:clickable="true" 
+					     android:textSize="13dp"
+        				android:layout_marginTop="15dip">
+		 			</EditText>
+       			</LinearLayout>
+       			
+       			<Button android:id="@+id/submit"
+		    	    android:layout_width="fill_parent"
+		    	    android:layout_height="40dp"
+		    	    android:text="立即发布"
+		    	    android:background="@drawable/blue"
+		    	    android:layout_marginTop="30dp"
+		    	    android:textSize="30dp"
+		    	    android:textColor="@drawable/white"
+    	    	/>
+    </LinearLayout>
+	     
+	 </ScrollView>
+
+	 
+
+</LinearLayout>

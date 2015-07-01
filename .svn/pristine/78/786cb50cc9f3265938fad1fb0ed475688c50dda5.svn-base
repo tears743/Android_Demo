@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="right" android:orientation="vertical" android:id="@id/detailetopmenu" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/v1_menutop" />
+        <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView android:textSize="15.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/txt_update" android:background="@drawable/v1_topmenu" android:layout_width="fill_parent" android:layout_height="fill_parent" android:text="更新信息" android:layout_weight="1.0" />
+            <ImageView android:id="@id/img_update" android:layout_width="fill_parent" android:layout_height="wrap_content" android:src="@drawable/v1_topmenuline" />
+            <TextView android:textSize="15.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/txt_collect_or_not" android:background="@drawable/v1_topmenu" android:layout_width="fill_parent" android:layout_height="fill_parent" android:text="收藏/取消收藏" android:layout_weight="1.0" />
+            <ImageView android:layout_width="fill_parent" android:layout_height="wrap_content" android:src="@drawable/v1_topmenuline" />
+            <TextView android:textSize="15.0sp" android:textColor="@color/white" android:gravity="center" android:id="@id/txt_cancel" android:background="@drawable/v1_topmenu" android:layout_width="fill_parent" android:layout_height="fill_parent" android:text="取  消" android:layout_weight="1.0" />
+        </LinearLayout>
+    </LinearLayout>
+    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/v1_menubuttom" />
+</LinearLayout>

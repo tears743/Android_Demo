@@ -1,0 +1,376 @@
+/**
+ * 
+ */
+package info.ericyue.es.activity;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import info.ericyue.es.R;
+import info.ericyue.es.util.HttpUtil;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.SimpleAdapter;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+
+/**
+ * @author tears
+ *
+ */
+public class CarOwnerRegist extends Activity {
+
+	public static void launch (Context c , Bundle bundle){
+		Intent intent = new Intent(c, CarOwnerRegist.class);
+		intent.putExtras(bundle);
+		c.startActivity(intent);
+		}
+	
+	private EditText userName,passWord1,passWord2,
+	registerName,registerNum,registerEmail,
+	registerCompanyName;
+	private String registName,passWord,trueName,cellphone,email,companyName,address,role;
+	private Button province,city,district,submit;
+	View alterView;
+	private static final String DATABASE_PATH ="/data/data/info.ericyue.es/database";
+	private static final String DATABASE_NAME = "china.db3";
+	private static String outFileName = DATABASE_PATH + "/" + DATABASE_NAME;
+	GridView gdView ;
+	SimpleAdapter saGrid;
+	ArrayList<HashMap<String, Object>> provinceGrid = new ArrayList<HashMap<String,Object>>();
+	AlertDialog.Builder alterdia;
+	private Boolean proFlag=false,cityFlag=false,disFlag=false;
+	int proID,cityID,disID,ID;
+	
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+//		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+		setContentView(R.layout.carownerregist);
+		try{
+			buildDatabase();
+			}
+			catch(Exception e){
+				System.out.println(e);
+			}
+		Province();
+//		------------------------------------------------------------------------------------------
+		userName = (EditText)findViewById(R.id.ousername);
+		passWord1 =(EditText)findViewById(R.id.opassword1);
+		passWord2 =(EditText)findViewById(R.id.opassword2);
+		registerName =(EditText)findViewById(R.id.oregistername);
+		registerNum =(EditText)findViewById(R.id.oregisternum);
+		registerEmail =(EditText)findViewById(R.id.oregisteremail);
+		registerCompanyName =(EditText)findViewById(R.id.oregistercompanyname);
+		province = (Button)findViewById(R.id.oprovince);
+		city = (Button)findViewById(R.id.ocity);
+		district = (Button)findViewById(R.id.odistrict);
+		submit = (Button)findViewById(R.id.osubmit);
+		submit.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+//				System.out.println(userName.getText().toString());
+				if(!CheckUserName(userName.getText().toString())){
+					Toast.makeText(CarOwnerRegist.this, "用户名只能由4-18个字母或数字组成（不区分大小写），不能用中文，注册成功后不可修改",Toast.LENGTH_LONG).show();
+				}
+					else if(!CheckPassword(passWord1.getText().toString())){
+					Toast.makeText(CarOwnerRegist.this, "密码只能由6-16个字母或数字组成（区分大小写），不能用中文",Toast.LENGTH_LONG).show();
+				}
+						else if(!passWord1.getText().toString().equals(passWord2.getText().toString())){
+						Toast.makeText(CarOwnerRegist.this, "两次密码不一致！",Toast.LENGTH_LONG).show();
+					}
+							else{
+								String state="";
+								try{
+									GetRegistInfo();
+								
+									state=HttpUtil.insertRegisterInfo(registName, trueName, passWord, companyName, role, cellphone, address, email);
+								}
+								catch(Exception e){
+									
+									System.out.println(e);
+									
+								}
+									if(state.contains("0"))
+									{
+										Toast.makeText(CarOwnerRegist.this, "用户名有重复，请更改。",Toast.LENGTH_LONG).show();
+									}
+									else
+									{	
+										Toast.makeText(CarOwnerRegist.this, "注册成功"+state,Toast.LENGTH_LONG).show();
+										Bundle bundle = new Bundle();
+										LoginActivity.launch(CarOwnerRegist.this, bundle);
+									}
+							}
+			}
+		});
+//		----------------------------------------------------------------------------------------------
+		SetView();
+	}
+	
+	private void SetView(){
+		saGrid = new SimpleAdapter(this, provinceGrid,R.layout.griditem,new String[] {"p0"}, new int[]{R.id.p0});
+		province =(Button) findViewById(R.id.oprovince);
+		LayoutInflater mInflater = LayoutInflater.from(this);
+		alterView =mInflater.inflate(R.layout.gridview, null);
+		alterdia = new AlertDialog.Builder(this);
+		LinearLayout ll = (LinearLayout)alterView.findViewById(R.id.pro);
+		alterdia.setView(alterView);
+		final  AlertDialog alertdialog = alterdia.create();
+		gdView = (GridView)alterView.findViewById(R.id.gdview);
+		gdView.setAdapter(saGrid);
+		gdView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+					ID=position +1;
+					
+				  HashMap<String, Object> item = (HashMap<String, Object>) parent.getItemAtPosition(position);
+				  String itemText=(String)item.get("p0");
+				  if(province.getText().equals("省份")||!proFlag){
+					  proID = ID;
+					  proFlag=true;
+					  province.setText(itemText);
+					  Toast.makeText(CarOwnerRegist.this, itemText, Toast.LENGTH_LONG).show();
+					  City(itemText);
+					  saGrid.notifyDataSetChanged();
+				  }
+				  else if(city.getText().equals("城市")||!cityFlag){
+					  cityID = ID;
+					  System.out.println(ID);
+					  cityFlag=true;
+					  city.setText(itemText);
+					  Toast.makeText(CarOwnerRegist.this, itemText, Toast.LENGTH_LONG).show();
+					  District(itemText);
+					  saGrid.notifyDataSetChanged();
+//					  saGrid.notifyDataSetChanged();
+//					  alertdialog.dismiss();
+					  Toast.makeText(CarOwnerRegist.this, itemText, Toast.LENGTH_LONG).show();
+				  }
+				  else {
+					  disID = ID;
+					  district.setText(itemText);
+					  Toast.makeText(CarOwnerRegist.this, itemText, Toast.LENGTH_LONG).show();
+					  alertdialog.dismiss();
+					  proFlag=false;
+					  cityFlag=false;
+				  }
+				  
+//				  System.out.println(position);
+				  
+			}
+			
+		});
+city.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(province.getText().equals("省份")&&!proFlag){
+					Toast.makeText(CarOwnerRegist.this, "请先选择省份", Toast.LENGTH_LONG).show();
+				}
+				else{
+					City(province.getText().toString());
+//					cityFlag=true;
+					proFlag=true;
+					alertdialog.show();
+				}
+				
+			}
+		});
+		district.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(city.getText().equals("城市")&&!cityFlag){
+					Toast.makeText(CarOwnerRegist.this, "请先选择城市", Toast.LENGTH_LONG).show();
+				}
+				else{
+					disFlag=true;
+					District(city.getText().toString());
+					alertdialog.show();
+				}
+			}
+		});
+		
+		province.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				
+				proFlag=false;
+				cityFlag=false;
+				disFlag=false;
+				provinceGrid.clear();
+				Province();
+				saGrid.notifyDataSetChanged();
+				alertdialog.show();
+				
+//				System.out.println(arg0);
+				
+			}
+		});
+	}
+	
+	
+	
+	private void District(String cName){
+		File f = new File(outFileName);
+		SQLiteDatabase db =  SQLiteDatabase.openOrCreateDatabase(f,null);
+		
+		Cursor cur1 = db.rawQuery("Select CitySort from T_City where CityName ="+"\""+cName+"\"", null);
+		cur1.moveToNext();
+		String cs = cur1.getString(cur1.getColumnIndexOrThrow("CitySort"));
+		cur1.close();
+		cityID = Integer.parseInt(cs);
+		
+		Cursor cur = db.rawQuery("Select ZoneName from T_Zone where CityID ="+cityID, null);
+		provinceGrid.clear();
+		while(cur.moveToNext()){
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			String province = cur.getString(cur.getColumnIndexOrThrow("ZoneName"));
+			map.put("p0", province);
+			provinceGrid.add(map);
+		}
+	}
+	
+	private void City(String pName){
+		File f = new File(outFileName);
+		SQLiteDatabase db =  SQLiteDatabase.openOrCreateDatabase(f,null);
+		
+		Cursor cur1 = db.rawQuery("Select ProSort from T_Province where ProName ="+"\""+pName+"\"", null);
+		cur1.moveToFirst();
+		String cs = cur1.getString(cur1.getColumnIndexOrThrow("ProSort"));
+		proID = Integer.parseInt(cs);
+		Cursor cur = db.rawQuery("Select CityName,CitySort from T_City where ProID ="+proID, null);
+		provinceGrid.clear();
+	
+		while(cur.moveToNext()){
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			String province = cur.getString(cur.getColumnIndexOrThrow("CityName"));
+			map.put("p0", province);
+			provinceGrid.add(map);
+		}
+	}
+	
+	private void GetRegistInfo() {
+		registName = userName.getText().toString();
+		passWord= passWord1.getText().toString();
+		trueName= registerName.getText().toString();
+		cellphone=registerNum.getText().toString();
+		email=registerEmail.getText().toString();
+		companyName=registerCompanyName.getText().toString();
+		address=province.getText().toString()+city.getText().toString()+district.getText().toString();
+//		address = URLEncoder.encode(URLEncoder.encode(address,"UTF-8"),"UTF-8");
+		role="2";
+	}
+	private boolean CheckPassword(String str){
+		
+		if(str==null){
+			return false;
+		}
+		if(str.length()<6||str.length()>16){
+			return false;
+		}
+		String line = str;
+		  Pattern pattern = Pattern.compile("[\\u4E00-\\u9FFF]+$");
+		  Matcher matcher = pattern.matcher(line);
+		  while (matcher.find()) {
+		   System.out.println(matcher.group()); // 结果
+		   return false;
+		  }
+		
+		return true;
+	}
+private boolean CheckUserName(String str){
+		
+		if(str==null){
+			return false;
+		}
+		if(str.length()<4||str.length()>18){
+			return false;
+		}
+		String line = str;
+		  Pattern pattern = Pattern.compile(".*[a-zA-Z].*[0-9]|.*[0-9]|.*[a-zA-Z]");
+		  Matcher matcher = pattern.matcher(line);
+		  int count=0;
+		  Boolean b= matcher.find();
+		  System.out.println(b);
+		  return b;
+		 
+		 
+	}
+	private void buildDatabase() throws Exception{
+		  InputStream myInput = getResources().openRawResource(R.raw.china);
+		  File file = new File(outFileName);  
+		  File dir = new File(DATABASE_PATH);
+		  if (!dir.exists()) {
+		   if (!dir.mkdir()) {
+			   
+		    throw new Exception("创建失败");
+		   }
+		  }
+	  
+	  if (!file.exists()) {   
+	   try {
+	    OutputStream myOutput = new FileOutputStream(outFileName);
+	    
+	    byte[] buffer = new byte[1024];
+	       int length;
+	       while ((length = myInput.read(buffer))>0){
+	        myOutput.write(buffer, 0, length);
+	       }
+	       myOutput.close();
+	       myInput.close();
+	   } catch (Exception e) {
+	    e.printStackTrace();
+	   }
+	  
+	  }
+	}
+	private void Province(){
+	
+		File f = new File(outFileName);
+		SQLiteDatabase db =  SQLiteDatabase.openOrCreateDatabase(f,null);
+		Cursor cur = db.rawQuery("Select ProName,ProSort from T_Province", null);
+//		String ps=cur.getString(cur.getColumnIndexOrThrow("ProSort"));
+//		proID= Integer.parseInt(ps);
+		provinceGrid.clear();
+		while(cur.moveToNext()){
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			String province = cur.getString(cur.getColumnIndexOrThrow("ProName"));
+			
+			map.put("p0", province);
+			provinceGrid.add(map);
+		}
+		
+	
+	}
+	
+
+}

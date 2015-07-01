@@ -1,0 +1,29 @@
+package info.ericyue.es.activity;
+
+import info.ericyue.es.R;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+
+public class DriverRegist extends Activity {
+	
+	public static void launch (Context c , Bundle bundle){
+		Intent intent = new Intent(c, CargoUserRegist.class);
+		intent.putExtras(bundle);
+		c.startActivity(intent);
+		}
+	
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.driverregist);
+		
+	}
+	
+	
+
+}

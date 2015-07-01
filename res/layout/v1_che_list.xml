@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <include layout="@layout/v1_title" />
+    <FrameLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1.0">
+        <ListView android:id="@+id/list_condi_che" android:background="@color/bai" android:layout_width="fill_parent" android:layout_height="fill_parent" android:cacheColorHint="#00000000" />
+        <LinearLayout android:gravity="center" android:orientation="vertical" android:id="@id/li_no_info" android:background="@color/bai" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <ImageView android:background="@drawable/v1_noinfo_bg" android:layout_width="80.0dip" android:layout_height="80.0dip" />
+            <TextView android:textSize="16.0sp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:text="@string/no_search_info" />
+        </LinearLayout>
+    </FrameLayout>
+    <Button android:id="@+id/btn_c_zhuye" android:background="@drawable/btn_zhuye" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="40.0dip" />
+</LinearLayout>

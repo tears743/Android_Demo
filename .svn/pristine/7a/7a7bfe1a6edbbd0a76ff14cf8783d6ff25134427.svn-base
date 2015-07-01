@@ -1,0 +1,563 @@
+package info.ericyue.es.activity;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+
+import info.ericyue.es.R;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.SimpleAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+
+public class CarRelease extends Activity {
+
+	private Button btReturn, btReset, btProvinces, btCitys, btCounty,
+			ddProvinces, ddCitys, ddCounty, btRelease;
+	private static final String DATABASE_PATH = "/data/data/info.ericyue.es/database";
+	private static final String DATABASE_NAME = "china.db3";
+	private static String outFileName = DATABASE_PATH + "/" + DATABASE_NAME;
+	private int myyear, mymonth, mydate;
+	private EditText editMethods, datePickText, editExplain;
+	private Spinner carNumSpinner, wordSpinner;
+	private RadioGroup typeGroup;
+	private RadioButton returnCar;
+	private RadioButton localCar;
+	private RadioGroup timeGroup;
+	private RadioButton immediateCar;
+	private RadioButton longtermCar;
+	
+	
+	View alterView;
+	GridView gdView ;
+	SimpleAdapter saGrid;
+	AlertDialog.Builder alterdia;
+	int proID,cityID,disID,ID;
+	private Boolean rdproFlag=false,rdcityFlag=false,rddisFlag=false,ddproFlag=false,ddcityFlag=false,
+			dddisFlag=false,rdflag=false,ddflag=false;
+	
+	ArrayList<HashMap<String, Object>> provinceGrid = new ArrayList<HashMap<String,Object>>();
+
+	private String rdpro, rdcit, rddist, ddpro, ddcit, dddist;
+	private String cfddress, ddddress, carMethods, setoutdate, cartype,
+			timetype, words;
+
+	private ArrayAdapter<String> spinnercarAdapter, spinnerWordsAdapter;
+	private List<String> list = new ArrayList<String>();
+			//wordsList = new ArrayList<String>();
+
+	public static void launch(Context c, Bundle bundle) {
+		Intent intent = new Intent(c, CarRelease.class);
+		intent.putExtras(bundle);
+		c.startActivity(intent);
+	}
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.carrelease);
+
+		btReturn = (Button) findViewById(R.id.btReturn);
+		btReset = (Button) findViewById(R.id.btReset);
+		btProvinces = (Button) findViewById(R.id.btProvinces);
+		btCitys = (Button) findViewById(R.id.btCitys);
+		btCounty = (Button) findViewById(R.id.btCounty);
+		ddProvinces = (Button) findViewById(R.id.ddProvinces);
+		ddCitys = (Button) findViewById(R.id.ddCitys);
+		ddCounty = (Button) findViewById(R.id.ddCounty);
+		editMethods = (EditText) findViewById(R.id.editMethods);
+		carNumSpinner = (Spinner) findViewById(R.id.carNumSpinner);
+		typeGroup = (RadioGroup) findViewById(R.id.typeGroup);
+		returnCar = (RadioButton) findViewById(R.id.returnCar);
+		localCar = (RadioButton) findViewById(R.id.localCar);
+		timeGroup = (RadioGroup) findViewById(R.id.timeGroup);
+		immediateCar = (RadioButton) findViewById(R.id.immediateCar);
+		longtermCar = (RadioButton) findViewById(R.id.longtermCar);
+		datePickText = (EditText) findViewById(R.id.datepicker);
+		wordSpinner = (Spinner) findViewById(R.id.wordSpinner);
+		editExplain = (EditText) findViewById(R.id.editExplain);
+		btRelease = (Button) findViewById(R.id.btRelease);
+
+		SetList();
+		SetSpinnerAdater();
+		SetRadioGroup();
+		SetDefaultDate();
+		SetDateText();
+		SetView();
+		SetReleaseButton();
+	}
+
+	private void SetReleaseButton() {
+
+		btRelease.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				cfddress = rdpro + "-" + rdcit + "-" + rddist;
+				ddddress = ddpro + "-" + ddcit + "-" + dddist;
+				carMethods = editMethods.getText().toString();
+
+				System.out.println(cfddress + ddddress + carMethods);
+				Bundle bundle = new Bundle();
+				CarRelease.this.finish();
+
+			}
+		});
+
+	}
+
+	private void SetDefaultDate() {
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DAY_OF_MONTH, 10);
+		cal.add(Calendar.MONTH, 1); // android bug
+		myyear = cal.get(Calendar.YEAR);
+		mymonth = cal.get(Calendar.MONTH);
+		mydate = cal.get(Calendar.DAY_OF_MONTH);
+		datePickText.setText(myyear + "-" + mymonth + "-" + mydate);
+		setoutdate = myyear + "-" + mymonth + "-" + mydate;
+	}
+
+	private void SetDateText() {
+		datePickText.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				DatePickerDialog.OnDateSetListener dpListener = new OnDateSetListener() {
+
+					@Override
+					public void onDateSet(DatePicker view, int year,
+							int monthOfYear, int dayOfMonth) {
+						myyear = year;
+						mymonth = monthOfYear + 1;
+						mydate = dayOfMonth;
+						UpDate();
+					}
+				};
+				DatePickerDialog dpd = new DatePickerDialog(CarRelease.this,
+						dpListener, myyear, mymonth - 1, mydate);
+				dpd.show();
+			}
+		});
+	}
+
+	private void UpDate() {
+
+		datePickText.setText(myyear + "-" + mymonth + "-" + mydate);
+		setoutdate = myyear + "-" + mymonth + "-" + mydate;
+	}
+
+	private void SetRadioGroup() {
+		typeGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				// TODO Auto-generated method stub
+				int radioButtonId = group.getCheckedRadioButtonId();
+				RadioButton rb = (RadioButton) CarRelease.this
+						.findViewById(radioButtonId);
+				cartype = rb.getText().toString();
+			}
+		});
+
+		timeGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				// TODO Auto-generated method stub
+				int radioButtonId = group.getCheckedRadioButtonId();
+				RadioButton rb2 = (RadioButton) CarRelease.this
+						.findViewById(radioButtonId);
+				timetype = rb2.getText().toString();
+			}
+		});
+	}
+
+	private void SetSpinnerAdater() {
+
+		spinnercarAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, list) {
+
+			@Override
+			public int getCount() {
+				// TODO Auto-generated method stub
+				return super.getCount() - 1;
+			}
+
+			@Override
+			public View getView(int position, View convertView, ViewGroup parent) {
+				// TODO Auto-generated method stub
+				View v = super.getView(position, convertView, parent);
+				if (position == getCount()) {
+					((TextView) v.findViewById(android.R.id.text1)).setText("");
+					((TextView) v.findViewById(android.R.id.text1))
+							.setHint(getItem(getCount()));// "Hint to be displayed"
+				}
+
+				return v;
+			}
+
+		};
+		spinnercarAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		carNumSpinner.setAdapter(spinnercarAdapter);
+		carNumSpinner.setSelection(spinnercarAdapter.getCount());
+		carNumSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				// cargoname.setText(spinnercarAdapter.getItem(position));
+				parent.setVisibility(view.VISIBLE);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				parent.setVisibility(View.INVISIBLE);
+			}
+		});
+		carNumSpinner
+				.setOnFocusChangeListener(new Spinner.OnFocusChangeListener() {
+
+					@Override
+					public void onFocusChange(View v, boolean hasFocus) {
+						// TODO Auto-generated method stub
+						if (hasFocus) {
+							v.setVisibility(View.INVISIBLE);
+						}
+					}
+				});
+		spinnerWordsAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, list);
+		spinnerWordsAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		wordSpinner.setAdapter(spinnerWordsAdapter);
+		wordSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				// cargoname.setText(spinnercargoAdapter.getItem(position));
+				words = spinnerWordsAdapter.getItem(position);
+				parent.setVisibility(view.VISIBLE);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				parent.setVisibility(View.INVISIBLE);
+			}
+		});
+
+	}
+
+	private void SetList() {
+		String words[] = { "求货源", "有货速联系", "低价急走", "运价好商量", "装车付款", "司机在等",
+				"回程车", "装车就走", "求零担", "晚上也可装车" };
+		for (int i = 0; i < words.length; i++) {
+			list.add(words[i]);
+
+		}
+	}
+	
+	private void SetView(){
+		saGrid = new SimpleAdapter(this, provinceGrid,R.layout.griditem,new String[] {"p0"}, new int[]{R.id.p0});
+		btProvinces =(Button) findViewById(R.id.btProvinces);
+		ddProvinces=(Button) findViewById(R.id.ddProvinces);
+		LayoutInflater mInflater = LayoutInflater.from(this);
+		alterView =mInflater.inflate(R.layout.gridview, null);
+		alterdia = new AlertDialog.Builder(this);
+		LinearLayout ll = (LinearLayout)alterView.findViewById(R.id.pro);
+		alterdia.setView(alterView);
+		final  AlertDialog alertdialog = alterdia.create();
+		gdView = (GridView)alterView.findViewById(R.id.gdview);
+		gdView.setAdapter(saGrid);
+		gdView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+					ID=position +1;
+					
+				  HashMap<String, Object> item = (HashMap<String, Object>) parent.getItemAtPosition(position);
+				  String itemText=(String)item.get("p0");
+				  if(rdflag){
+					  
+					  if(btProvinces.getText().equals("省份")||!rdproFlag){
+						  proID = ID;
+						  rdproFlag=true;
+						  rdpro = itemText;
+						  btProvinces.setText(itemText);
+						  Toast.makeText(CarRelease.this, itemText, Toast.LENGTH_LONG).show();
+						  City(itemText);
+						  saGrid.notifyDataSetChanged();
+					  }
+					  else if(btCitys.getText().equals("城市")||!rdcityFlag){
+						  cityID = ID;
+						  System.out.println(ID);
+						  rdcityFlag=true;
+						  rdcit = itemText;
+						  btCitys.setText(itemText);
+						  Toast.makeText(CarRelease.this, itemText, Toast.LENGTH_LONG).show();
+						  District(itemText);
+						  saGrid.notifyDataSetChanged();
+	//					  alertdialog.dismiss();
+						  Toast.makeText(CarRelease.this, itemText, Toast.LENGTH_LONG).show();
+					  }
+					  else {
+						  rdflag=false;
+						  rdproFlag=true;
+						  rdcityFlag=true;
+						  disID = ID;
+						  rddist = itemText;
+						  btCounty.setText(itemText);
+						  Toast.makeText(CarRelease.this, itemText, Toast.LENGTH_LONG).show();
+						  alertdialog.dismiss();
+						 
+					  }
+				  }
+				  else if(ddflag){
+					  
+					  if(ddProvinces.getText().equals("省份")||!ddproFlag){
+					  proID = ID;
+					  ddproFlag=true;
+					  ddpro = itemText;
+					  ddProvinces.setText(itemText);
+					  Toast.makeText(CarRelease.this, itemText, Toast.LENGTH_LONG).show();
+					  City(itemText);
+					  saGrid.notifyDataSetChanged();
+				  }
+				  else if(ddCitys.getText().equals("城市")||!ddcityFlag){
+					  cityID = ID;
+					  System.out.println(ID);
+					  ddcityFlag=true;
+					  ddCitys.setText(itemText);
+					  ddcit = itemText;
+					  Toast.makeText(CarRelease.this, itemText, Toast.LENGTH_SHORT).show();
+					  District(itemText);
+					  saGrid.notifyDataSetChanged();
+					  
+//					  saGrid.notifyDataSetChanged();
+//					  alertdialog.dismiss();
+					  Toast.makeText(CarRelease.this, itemText, Toast.LENGTH_LONG).show();
+				  }
+				  else {
+					  disID = ID;
+					  dddist = itemText;
+					  ddCounty.setText(itemText);
+					  Toast.makeText(CarRelease.this, itemText, Toast.LENGTH_SHORT).show();
+					  ddproFlag=true;
+					  ddcityFlag=true;
+					  ddflag=false;
+					  alertdialog.dismiss();
+					 
+				  }
+				  
+//				  System.out.println(position);
+				  
+			}
+				  }
+			
+		});
+		
+		btCitys.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(btProvinces.getText().equals("省份")&&!rdproFlag){
+					Toast.makeText(CarRelease.this, "请先选择省份", Toast.LENGTH_LONG).show();
+				}
+				else{
+					City(btProvinces.getText().toString());
+//					cityFlag=true;
+					rdproFlag=true;
+					rdflag=true;
+					alertdialog.show();
+				}
+				
+			}
+		});
+		btCounty.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(btCitys.getText().equals("城市")&&!rdcityFlag){
+					Toast.makeText(CarRelease.this, "请先选择城市", Toast.LENGTH_LONG).show();
+				}
+				else{
+					rddisFlag=true;
+					rdflag=true;
+					rdcityFlag=true;
+					District(btCitys.getText().toString());
+					alertdialog.show();
+				}
+			}
+		});
+		
+		btProvinces.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				
+				rdproFlag=false;
+				rdcityFlag=false;
+				rddisFlag=false;
+				rdflag=true;
+				provinceGrid.clear();
+				Province();
+				saGrid.notifyDataSetChanged();
+				alertdialog.show();
+				
+//				System.out.println(arg0);
+				
+			}
+		});
+		ddCitys.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(btProvinces.getText().equals("省份")&&!ddproFlag){
+					Toast.makeText(CarRelease.this, "请先选择省份", Toast.LENGTH_LONG).show();
+				}
+				else{
+					City(btProvinces.getText().toString());
+//					cityFlag=true;
+					ddproFlag=true;
+					ddflag=true;
+					alertdialog.show();
+				}
+				
+			}
+		});
+		ddCounty.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(btCitys.getText().equals("城市")&&!ddcityFlag){
+					Toast.makeText(CarRelease.this, "请先选择城市", Toast.LENGTH_LONG).show();
+				}
+				else{
+					dddisFlag=true;
+					ddflag=true;
+					ddcityFlag=true;
+					District(btCitys.getText().toString());
+					alertdialog.show();
+				}
+			}
+		});
+		
+		ddProvinces.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				
+				ddproFlag=false;
+				ddcityFlag=false;
+				dddisFlag=false;
+				ddflag=true;
+				provinceGrid.clear();
+				
+				Province();
+				
+				saGrid.notifyDataSetChanged();
+				alertdialog.show();
+				
+//				System.out.println(arg0);
+				
+			}
+		});
+	}
+	
+private void Province(){
+		
+		File f = new File(outFileName);
+		SQLiteDatabase db =  SQLiteDatabase.openOrCreateDatabase(f,null);
+		Cursor cur = db.rawQuery("Select ProName,ProSort from T_Province", null);
+//		String ps=cur.getString(cur.getColumnIndexOrThrow("ProSort"));
+//		proID= Integer.parseInt(ps);
+		provinceGrid.clear();
+		while(cur.moveToNext()){
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			String province = cur.getString(cur.getColumnIndexOrThrow("ProName"));
+			
+			map.put("p0", province);
+			provinceGrid.add(map);
+		}
+		
+	
+	}
+	private void City(String pName){
+		File f = new File(outFileName);
+		SQLiteDatabase db =  SQLiteDatabase.openOrCreateDatabase(f,null);
+		
+		Cursor cur1 = db.rawQuery("Select ProSort from T_Province where ProName ="+"\""+pName+"\"", null);
+		cur1.moveToFirst();
+		String cs = cur1.getString(cur1.getColumnIndexOrThrow("ProSort"));
+		proID = Integer.parseInt(cs);
+		Cursor cur = db.rawQuery("Select CityName,CitySort from T_City where ProID ="+proID, null);
+		provinceGrid.clear();
+	
+		while(cur.moveToNext()){
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			String province = cur.getString(cur.getColumnIndexOrThrow("CityName"));
+			map.put("p0", province);
+			provinceGrid.add(map);
+		}
+	}
+	
+	private void District(String cName){
+		File f = new File(outFileName);
+		SQLiteDatabase db =  SQLiteDatabase.openOrCreateDatabase(f,null);
+		
+		Cursor cur1 = db.rawQuery("Select CitySort from T_City where CityName ="+"\""+cName+"\"", null);
+		cur1.moveToNext();
+		String cs = cur1.getString(cur1.getColumnIndexOrThrow("CitySort"));
+		cur1.close();
+		cityID = Integer.parseInt(cs);
+		
+		Cursor cur = db.rawQuery("Select ZoneName from T_Zone where CityID ="+cityID, null);
+		provinceGrid.clear();
+		while(cur.moveToNext()){
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			String province = cur.getString(cur.getColumnIndexOrThrow("ZoneName"));
+			map.put("p0", province);
+			provinceGrid.add(map);
+		}
+	}
+
+}

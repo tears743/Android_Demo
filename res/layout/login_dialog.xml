@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+android:id="@+id/widget31"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+xmlns:android="http://schemas.android.com/apk/res/android"
+>
+<EditText
+android:id="@+id/userEditText"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:padding="5px"
+android:singleLine="true"
+android:hint="用户名"
+android:textSize="18sp"
+android:layout_alignParentTop="true"
+android:layout_centerHorizontal="true"
+>
+</EditText>
+
+<EditText
+android:id="@+id/pwdEditText"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:padding="5px"
+android:hint="密码"
+android:textSize="18sp"
+android:singleLine="true"
+android:password="true"
+android:layout_below="@+id/userEditText"
+android:layout_alignLeft="@+id/userEditText"
+>
+</EditText>
+
+<CheckBox
+    android:id="@+id/isRmber"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/pwdEditText" 
+    />
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignBottom="@+id/isRmber"
+    android:text="记住密码"
+    android:textColor="@drawable/white" 
+    android:textSize="20sp"
+    android:layout_toRightOf="@id/isRmber"
+    android:layout_alignBaseline="@id/isRmber"/>
+
+</RelativeLayout>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/pro" 
+    android:background="@drawable/white">
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:text="选择省份"
+        android:textColor="@drawable/white"
+        android:background="@drawable/blue"
+        android:gravity="center_horizontal|center_vertical"
+        >
+        </TextView>
+    <GridView
+        android:id="@+id/gdview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:numColumns="3"
+        android:verticalSpacing="3dp"
+        android:horizontalSpacing="3dp"
+        android:columnWidth="50dp"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        >
+   </GridView>
+   <Button android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="不限区域"
+       android:id="@+id/AnyWhere"
+       android:background="@drawable/buttonselect"
+       android:textSize="18sp"
+       android:textColor="@drawable/white"
+          
+       />
+    
+
+</LinearLayout>

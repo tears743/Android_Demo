@@ -1,0 +1,365 @@
+package info.ericyue.es.activity;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.SimpleAdapter;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+import info.ericyue.es.R;
+import info.ericyue.es.util.HttpUtil;
+
+public class CargoInfoSearch extends Activity {
+
+	public static void launch(Context c,Bundle bundle){
+		Intent intent = new Intent(c, CargoInfoSearch.class);
+		intent.putExtras(bundle);
+		c.startActivity(intent);
+	}
+//	地址选择----------------------------------------------------------------------
+	private static final String DATABASE_PATH ="/data/data/info.ericyue.es/database";
+	private static final String DATABASE_NAME = "china.db3";
+	private static String outFileName = DATABASE_PATH + "/" + DATABASE_NAME;
+	private Button srdprovince,srdcity,srdistrict,sdprovince,sdcity,sdistrict;
+	View alterView;
+	GridView gdView ;
+	SimpleAdapter saGrid;
+	ArrayList<HashMap<String, Object>> provinceGrid = new ArrayList<HashMap<String,Object>>();
+	AlertDialog.Builder alterdia;
+	
+//	地址选择----------------------------------------------------------------------	
+	private Boolean rdproFlag=false,rdcityFlag=false,rddisFlag=false,ddproFlag=false,ddcityFlag=false,
+			dddisFlag=false,rdflag=false,ddflag=false;
+	int proID,cityID,disID,ID;
+	String rdpro,rdcit,rddist,ddpro,ddcit,dddist;
+	Bundle bundle = new Bundle();
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		
+		
+		
+//		地址选择----------------------------------------------------------------------
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.cargoinfosearch);
+		srdprovince = (Button)findViewById(R.id.srprovince);
+		srdcity = (Button)findViewById(R.id.srcity);
+		srdistrict = (Button)findViewById(R.id.srdistrict);
+		sdprovince = (Button)findViewById(R.id.sdprovince);
+		sdcity = (Button)findViewById(R.id.sdcity);
+		sdistrict = (Button)findViewById(R.id.sddistrict);
+		SetView();
+		Button back = (Button)findViewById(R.id.back);
+		Button submit = (Button)findViewById(R.id.searchsubmit);
+		submit.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Log.i("address:",rdpro+rdcit+rddist+"to"+ddpro+ddcit+dddist);
+//				bundle.put
+				String cargo_sd,cargo_dd;
+				cargo_sd = rdpro+rdcit+rddist;
+				cargo_dd = ddpro+ddcit+dddist;
+				bundle.putString("cargo_sd", cargo_sd);
+				bundle.putString("cargo_dd", cargo_dd);
+				
+				CargoInfo.launch(CargoInfoSearch.this, bundle);
+			}
+		});
+//		地址选择----------------------------------------------------------------------
+		back.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				CargoInfoSearch.this.finish();
+			}
+		});
+	}
+	private void SetView(){
+		saGrid = new SimpleAdapter(this, provinceGrid,R.layout.griditem,new String[] {"p0"}, new int[]{R.id.p0});
+//		srdprovince =(Button) findViewById(R.id.rdprovince);
+//		sdprovince=(Button) findViewById(R.id.ddprovince);
+		LayoutInflater mInflater = LayoutInflater.from(this);
+		alterView =mInflater.inflate(R.layout.gridview, null);
+		alterdia = new AlertDialog.Builder(this);
+		LinearLayout ll = (LinearLayout)alterView.findViewById(R.id.pro);
+		alterdia.setView(alterView);
+		final  AlertDialog alertdialog = alterdia.create();
+		gdView = (GridView)alterView.findViewById(R.id.gdview);
+		gdView.setAdapter(saGrid);
+		gdView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+					ID=position +1;
+					
+				  HashMap<String, Object> item = (HashMap<String, Object>) parent.getItemAtPosition(position);
+				  String itemText=(String)item.get("p0");
+				  if(rdflag){
+					  
+					  if(srdprovince.getText().equals("省份")||!rdproFlag){
+						  proID = ID;
+						  rdproFlag=true;
+						  rdpro = itemText;
+						  srdprovince.setText(itemText);
+						  Toast.makeText(CargoInfoSearch.this, itemText, Toast.LENGTH_LONG).show();
+						  City(itemText);
+						  saGrid.notifyDataSetChanged();
+					  }
+					  else if(srdcity.getText().equals("城市")||!rdcityFlag){
+						  cityID = ID;
+						  System.out.println(ID);
+						  rdcityFlag=true;
+						  rdcit = itemText;
+						  srdcity.setText(itemText);
+						  Toast.makeText(CargoInfoSearch.this, itemText, Toast.LENGTH_LONG).show();
+						  District(itemText);
+						  saGrid.notifyDataSetChanged();
+	//					  saGrid.notifyDataSetChanged();
+	//					  alertdialog.dismiss();
+						  Toast.makeText(CargoInfoSearch.this, itemText, Toast.LENGTH_LONG).show();
+					  }
+					  else {
+						  rdflag=false;
+						  rdproFlag=true;
+						  rdcityFlag=true;
+						  disID = ID;
+						  rddist = itemText;
+						  srdistrict.setText(itemText);
+						  Toast.makeText(CargoInfoSearch.this, itemText, Toast.LENGTH_LONG).show();
+						  alertdialog.dismiss();
+						 
+					  }
+				  }
+				  else if(ddflag){
+					  
+					  if(sdprovince.getText().equals("省份")||!ddproFlag){
+					  proID = ID;
+					  ddproFlag=true;
+					  ddpro = itemText;
+					  sdprovince.setText(itemText);
+					  Toast.makeText(CargoInfoSearch.this, itemText, Toast.LENGTH_LONG).show();
+					  City(itemText);
+					  saGrid.notifyDataSetChanged();
+				  }
+				  else if(sdcity.getText().equals("城市")||!ddcityFlag){
+					  cityID = ID;
+					  System.out.println(ID);
+					  ddcityFlag=true;
+					  sdcity.setText(itemText);
+					  ddcit = itemText;
+					  Toast.makeText(CargoInfoSearch.this, itemText, Toast.LENGTH_SHORT).show();
+					  District(itemText);
+					  saGrid.notifyDataSetChanged();
+					  
+//					  saGrid.notifyDataSetChanged();
+//					  alertdialog.dismiss();
+					  Toast.makeText(CargoInfoSearch.this, itemText, Toast.LENGTH_LONG).show();
+				  }
+				  else {
+					  disID = ID;
+					  dddist = itemText;
+					  sdistrict.setText(itemText);
+					  Toast.makeText(CargoInfoSearch.this, itemText, Toast.LENGTH_SHORT).show();
+					  ddproFlag=true;
+					  ddcityFlag=true;
+					  ddflag=false;
+					  alertdialog.dismiss();
+					 
+				  }
+				  
+//				  System.out.println(position);
+				  
+			}
+				  }
+			
+		});
+		
+		srdcity.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(srdprovince.getText().equals("省份")&&!rdproFlag){
+					Toast.makeText(CargoInfoSearch.this, "请先选择省份", Toast.LENGTH_LONG).show();
+				}
+				else{
+					City(srdprovince.getText().toString());
+//					cityFlag=true;
+					rdproFlag=true;
+					rdflag=true;
+					alertdialog.show();
+				}
+				
+			}
+		});
+		sdistrict.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(srdcity.getText().equals("城市")&&!rdcityFlag){
+					Toast.makeText(CargoInfoSearch.this, "请先选择城市", Toast.LENGTH_LONG).show();
+				}
+				else{
+					rddisFlag=true;
+					rdflag=true;
+					rdcityFlag=true;
+					District(srdcity.getText().toString());
+					alertdialog.show();
+				}
+			}
+		});
+		
+		srdprovince.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				
+				rdproFlag=false;
+				rdcityFlag=false;
+				rddisFlag=false;
+				rdflag=true;
+				provinceGrid.clear();
+				Province();
+				saGrid.notifyDataSetChanged();
+				alertdialog.show();
+				
+//				System.out.println(arg0);
+				
+			}
+		});
+		sdcity.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(srdprovince.getText().equals("省份")&&!ddproFlag){
+					Toast.makeText(CargoInfoSearch.this, "请先选择省份", Toast.LENGTH_LONG).show();
+				}
+				else{
+					City(srdprovince.getText().toString());
+//					cityFlag=true;
+					ddproFlag=true;
+					ddflag=true;
+					alertdialog.show();
+				}
+				
+			}
+		});
+		sdistrict.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(srdcity.getText().equals("城市")&&!ddcityFlag){
+					Toast.makeText(CargoInfoSearch.this, "请先选择城市", Toast.LENGTH_LONG).show();
+				}
+				else{
+					dddisFlag=true;
+					ddflag=true;
+					ddcityFlag=true;
+					District(srdcity.getText().toString());
+					alertdialog.show();
+				}
+			}
+		});
+		
+		sdprovince.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				
+				ddproFlag=false;
+				ddcityFlag=false;
+				dddisFlag=false;
+				ddflag=true;
+				provinceGrid.clear();
+				
+				Province();
+				
+				saGrid.notifyDataSetChanged();
+				alertdialog.show();
+				
+//				System.out.println(arg0);
+				
+			}
+		});
+	}
+private void Province(){
+		
+		File f = new File(outFileName);
+		SQLiteDatabase db =  SQLiteDatabase.openOrCreateDatabase(f,null);
+		Cursor cur = db.rawQuery("Select ProName,ProSort from T_Province", null);
+//		String ps=cur.getString(cur.getColumnIndexOrThrow("ProSort"));
+//		proID= Integer.parseInt(ps);
+		provinceGrid.clear();
+		while(cur.moveToNext()){
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			String province = cur.getString(cur.getColumnIndexOrThrow("ProName"));
+			
+			map.put("p0", province);
+			provinceGrid.add(map);
+		}
+		
+	
+	}
+	private void City(String pName){
+		File f = new File(outFileName);
+		SQLiteDatabase db =  SQLiteDatabase.openOrCreateDatabase(f,null);
+		
+		Cursor cur1 = db.rawQuery("Select ProSort from T_Province where ProName ="+"\""+pName+"\"", null);
+		cur1.moveToFirst();
+		String cs = cur1.getString(cur1.getColumnIndexOrThrow("ProSort"));
+		proID = Integer.parseInt(cs);
+		Cursor cur = db.rawQuery("Select CityName,CitySort from T_City where ProID ="+proID, null);
+		provinceGrid.clear();
+	
+		while(cur.moveToNext()){
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			String province = cur.getString(cur.getColumnIndexOrThrow("CityName"));
+			map.put("p0", province);
+			provinceGrid.add(map);
+		}
+	}
+	
+	private void District(String cName){
+		File f = new File(outFileName);
+		SQLiteDatabase db =  SQLiteDatabase.openOrCreateDatabase(f,null);
+		
+		Cursor cur1 = db.rawQuery("Select CitySort from T_City where CityName ="+"\""+cName+"\"", null);
+		cur1.moveToNext();
+		String cs = cur1.getString(cur1.getColumnIndexOrThrow("CitySort"));
+		cur1.close();
+		cityID = Integer.parseInt(cs);
+		
+		Cursor cur = db.rawQuery("Select ZoneName from T_Zone where CityID ="+cityID, null);
+		provinceGrid.clear();
+		while(cur.moveToNext()){
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			String province = cur.getString(cur.getColumnIndexOrThrow("ZoneName"));
+			map.put("p0", province);
+			provinceGrid.add(map);
+		}
+	}
+	
+
+}

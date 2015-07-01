@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+     >
+     <TextView android:text="出发地 :"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@drawable/black"
+        android:textSize="13dp"
+        android:layout_marginTop="15dip">
+        </TextView>
+    <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:id="@+id/setFromProvince"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@drawable/black"
+                        android:text="省份"
+                        android:layout_marginTop="8dip" />
+
+                    <Button
+                        android:id="@+id/setFromCity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="市区" 
+                        android:layout_marginTop="8dip"/>
+
+                    <Button
+                        android:id="@+id/setFromCounty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@drawable/black"
+                        android:text="县区" 
+                        android:layout_marginTop="8dip"/>
+                </LinearLayout>
+                 <TextView android:text="到达地 :"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:textColor="@drawable/black"
+			        android:textSize="13dp"
+			        android:layout_marginTop="15dip">
+        </TextView>
+              <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:id="@+id/setToProvinces"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@drawable/black"
+                        android:text="省份"
+                        android:layout_marginTop="8dip" />
+
+                    <Button
+                        android:id="@+id/setToCitys"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@drawable/black"
+                        android:text="市区" 
+                        android:layout_marginTop="8dip"/>
+
+                    <Button
+                        android:id="@+id/setToCounty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@drawable/black"
+                        android:text="县区" 
+                        android:layout_marginTop="8dip"/>
+                </LinearLayout>
+
+</LinearLayout>

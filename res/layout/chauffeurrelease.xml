@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/white"
+    android:orientation="vertical"
+    android:scrollbarFadeDuration="1"
+    android:scrollbars="vertical" >
+    <LinearLayout android:layout_width="fill_parent"
+    android:layout_height="40dip"
+    android:orientation="horizontal"
+	android:background="@drawable/blue">
+		<TextView android:text="发布司机"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@drawable/white"
+        android:textSize="30dp">
+        
+        </TextView>
+        </LinearLayout>
+        
+		 <ScrollView  android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"  >
+        	<LinearLayout  android:layout_width="fill_parent"
+					    android:layout_height="match_parent"
+					    android:orientation="vertical" >
+    
+        	    <TextView android:text="司机所在地 :"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:textColor="@drawable/black"
+			        android:textSize="13dp"
+			        android:layout_marginTop="15dip">
+			        </TextView>
+        
+		        <LinearLayout android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		            android:orientation="horizontal">
+		    		<info.ericyue.es.myView.SelectAddressView
+		        android:layout_width="match_parent" 
+		        android:layout_height="wrap_content"
+		        android:id="@+id/chauffeurrelease"
+		        
+       			 />
+        	</LinearLayout>
+        	
+		        	     <TextView android:text="司机姓名 :"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:textColor="@drawable/black"
+			        android:textSize="13dp"
+        			android:layout_marginTop="15dip"
+        			/>
+		    <EditText
+					     android:id="@+id/chaufname"
+					     android:layout_width="match_parent"
+					     android:layout_height="55dip"
+					     android:layout_marginTop="8dip"
+					     android:ems="10"
+					     android:shadowRadius="3.0"
+					     android:clickable="true" >
+		 			</EditText>
+		 			<TextView android:text="联系电话 :"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:textColor="@drawable/black"
+			        android:textSize="13dp"
+        			android:layout_marginTop="15dip"
+        			/>
+		    <EditText
+					     android:id="@+id/chaufphone"
+					     android:layout_width="match_parent"
+					     android:layout_height="55dip"
+					     android:layout_marginTop="8dip"
+					     android:ems="10"
+					     android:shadowRadius="3.0"
+					     android:clickable="true" >
+		 			</EditText>
+		 			<TextView android:text="健康状态 :"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:textColor="@drawable/black"
+			        android:textSize="13dp"
+        			android:layout_marginTop="15dip"
+        			/>
+		    <EditText
+					     android:id="@+id/chaufhealth"
+					     android:layout_width="match_parent"
+					     android:layout_height="55dip"
+					     android:layout_marginTop="8dip"
+					     android:ems="10"
+					     android:shadowRadius="3.0"
+					     android:clickable="true" >
+		 			</EditText>
+		 			
+		    	<TextView android:text="司机驾龄:  （年）"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:textColor="@drawable/black"
+			        android:textSize="13dp"
+        			android:layout_marginTop="15dip"
+        			/>
+		    <EditText
+					     android:id="@+id/driverexp"
+					     android:layout_width="match_parent"
+					     android:layout_height="55dip"
+					     android:layout_marginTop="8dip"
+					     android:ems="10"
+					     android:shadowRadius="3.0"
+					     android:clickable="true" >
+		 			</EditText>
+		 			<TextView android:text="所开车型 :"
+				        android:layout_width="match_parent"
+				        android:layout_height="wrap_content"
+				        android:textColor="@drawable/black"
+				        android:textSize="13dp"
+       					 android:layout_marginTop="15dip">
+        			</TextView>
+			        <Spinner
+			    	    android:id="@+id/cartypespinner"
+			    	    android:layout_width="match_parent"
+			    	    android:layout_height="55dp"
+			    	    android:layout_marginTop="8dip"
+			    	     >
+			
+			    	    </Spinner>
+			    	    	
+				    	<TextView android:text="有效日期:"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:textColor="@drawable/black"
+					        android:textSize="13dp"
+		        			android:layout_marginTop="15dip"
+		        			
+		        			/>
+				    	<TextView android:hint="(默认为今天起10天)"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:textColor="@drawable/black"
+					        android:textSize="13dp"
+					        android:layout_marginTop="15dip"
+        					/>
+				    <EditText
+							     android:id="@+id/effectdate"
+							     android:layout_width="match_parent"
+							     android:layout_height="55dip"
+							     android:layout_marginTop="8dip"
+							     android:ems="10"
+							     android:shadowRadius="3.0"
+							     android:clickable="true" >
+				 			</EditText>
+				 		<TextView android:text="备	    注:"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:textColor="@drawable/black"
+					        android:textSize="13dp"
+		        			android:layout_marginTop="15dip"
+		        			/>
+				    <EditText
+							     android:id="@+id/remark"
+							     android:layout_width="match_parent"
+							     android:layout_height="55dip"
+							     android:layout_marginTop="8dip"
+							     android:ems="10"
+							     android:shadowRadius="3.0"
+							     android:clickable="true" >
+				 			</EditText>	
+				 			
+				    <Button android:id="@+id/chauffsubmit"
+		    	    android:layout_width="fill_parent"
+		    	    android:layout_height="40dp"
+		    	    android:text="立即发布"
+		    	    android:background="@drawable/buttonselect"
+		    	    android:layout_marginTop="30dp"
+		    	    android:textSize="30dp"
+		    	    android:textColor="@drawable/white"
+    	    	/>
+				 			
+				    		
+		    
+		    </LinearLayout>
+		   
+		    
+		    
+        	
+        	
+        </ScrollView>
+        
+	
+    
+
+</LinearLayout>

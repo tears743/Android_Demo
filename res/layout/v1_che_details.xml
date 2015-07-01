@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@color/bai" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <include layout="@layout/v1_title" />
+    <FrameLayout android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0">
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:baselineAligned="false">
+            <ScrollView android:id="@+id/sv_cd_detail" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_weight="1.0">
+                <TableLayout android:id="@+id/cheline_tablelayout" android:layout_width="fill_parent" android:layout_height="wrap_content" android:shrinkColumns="1">
+                    <TextView android:textSize="16.0sp" android:textColor="@color/bg_small_title" android:gravity="center_vertical" android:background="@color/bg_detail_geduan" android:padding="5.0sp" android:layout_width="fill_parent" android:layout_height="30.0sp" android:layout_marginTop="10.0sp" android:text="@string/che_detail_smalltitle1" />
+                    <TableRow android:layout_marginTop="10.0sp">
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="top|right|center" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="@string/che_detail_startArea" />
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="left|center" android:id="@id/txt_from_area" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+                    </TableRow>
+                    <TableRow android:layout_marginTop="10.0sp">
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="top|right|center" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="@string/che_detail_endArea" />
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="left|center" android:id="@id/txt_to_area" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+                    </TableRow>
+                    <TableRow android:layout_marginTop="10.0sp">
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="top|right|center" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="@string/che_detail_passPoint" />
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="left|center" android:id="@+id/txt_pass_point" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+                    </TableRow>
+                    <TableRow android:layout_marginTop="10.0sp">
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="top|right|center" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="@string/che_detail_releaseTime" />
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="left|center" android:id="@id/txt_datatime" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+                    </TableRow>
+                    <TableRow android:layout_marginTop="10.0sp">
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="top|right|center" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="@string/che_detail_startTime" />
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="left|center" android:id="@+id/txt_sendtime" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+                    </TableRow>
+                    <TableRow android:layout_marginTop="10.0sp">
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="top|right|center" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="@string/che_detail_notice" />
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="left|center" android:id="@id/txt_shuoming" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+                    </TableRow>
+                    
+                    
+                    <TableRow android:layout_marginTop="10.0sp">
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="top|right|center" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="@string/che_detail_cheLength" />
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="left|center" android:id="@+id/txt_car_length" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+                    </TableRow>
+                    <TableRow android:layout_marginTop="10.0sp">
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="top|right|center" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="@string/che_detail_weight" />
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="left|center" android:id="@+id/txt_zaizhong" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+                    </TableRow>
+                    <TableRow android:layout_marginTop="10.0sp">
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="top|right|center" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="@string/che_detail_location" />
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="left|center" android:id="@+id/txt_car_location" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+                    </TableRow>
+                    <TableRow android:layout_marginTop="10.0sp">
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="top|right|center" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="@string/che_detail_carType" />
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="left|center" android:id="@+id/txt_car_type" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+                    </TableRow>
+                    <TableRow android:layout_marginTop="10.0sp">
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="top|right|center" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="@string/che_detail_carCondition" />
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="left|center" android:id="@+id/txt_car_condition" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+                    </TableRow>
+                    <TableRow android:layout_marginTop="10.0sp">
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="top|right|center" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="@string/che_detail_carNumber" />
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="left|center" android:id="@+id/txt_chehao" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+                    </TableRow>
+                    <TableRow android:layout_marginTop="10.0sp">
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="top|right|center" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="@string/che_detail_linkPhone" />
+                        <TextView android:textSize="16.0sp" android:textColor="@color/black" android:gravity="left|center" android:id="@+id/txt_phone" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+                    </TableRow>
+                   
+                    
+                </TableLayout>
+            </ScrollView>
+           
+        </LinearLayout>
+        <include layout="@layout/v1_detail_topmenu" />
+    </FrameLayout>
+    <Button android:id="@id/btn_zhuye" android:background="@drawable/btn_zhuye" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="40.0sp" />
+    <LinearLayout android:gravity="center_vertical" android:id="@id/li_switch" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="40.0sp">
+        <ImageView android:id="@+id/img_cd_detail" android:background="@drawable/peihuo_detail" android:layout_width="wrap_content" android:layout_height="40.0sp" android:src="@drawable/v1_looklist1" android:scaleType="center" android:layout_weight="1.0" />
+        <ImageView android:id="@+id/img_cd_map" android:background="@drawable/peihuo_detail" android:layout_width="wrap_content" android:layout_height="40.0sp" android:src="@drawable/v1_lookmap1" android:scaleType="center" android:layout_weight="1.0" />
+    </LinearLayout>
+</LinearLayout>
